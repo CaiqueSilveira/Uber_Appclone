@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Caique\\Desktop\\uber_appclone\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "C:\\Users\\Caique\\Documents\\lib\\uber_appclone\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Caique\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-maps-17.0.0.aar\\c415abf68d746994775a1e37b034d694\\res\\values\\values.xml",
@@ -80,6 +80,25 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\Caique\\Documents\\lib\\uber_appclone\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "347"
+                    },
+                    "to": {
+                        "startLines": "384",
+                        "startColumns": "4",
+                        "startOffsets": "20978",
+                        "endLines": "388",
+                        "endColumns": "12",
+                        "endOffsets": "21270"
+                    }
+                },
+                {
                     "source": "C:\\Users\\Caique\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-17.0.0.aar\\1bb7595de6314a1588e2a216ddcf1f8b\\res\\values\\values.xml",
                     "from": {
                         "startLines": "4,7",
@@ -94,25 +113,6 @@
                         "startOffsets": "18436,19614",
                         "endColumns": "67,166",
                         "endOffsets": "18499,19776"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Caique\\Desktop\\uber_appclone\\android\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "57",
-                        "endLines": "6",
-                        "endColumns": "12",
-                        "endOffsets": "353"
-                    },
-                    "to": {
-                        "startLines": "384",
-                        "startColumns": "4",
-                        "startOffsets": "20978",
-                        "endLines": "388",
-                        "endColumns": "12",
-                        "endOffsets": "21270"
                     }
                 }
             ]

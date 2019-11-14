@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Caique\\Desktop\\uber_appclone\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
+            "outputFile": "C:\\Users\\Caique\\Documents\\lib\\uber_appclone\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Caique\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.0.aar\\ca26860d296c951ade892b82151559eb\\res\\values-v16\\values-v16.xml",

@@ -18,6 +18,16 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-
   uses-material-design: true
+  assets:
+    - assets/login-banner.png
+    - assets/login_image.png
+    - assets/login-img.png
+    - assets/br.png
+    - assets/google_logo.png
+    - assets/facebook_logo.png
+    - assets/money_logo.png
+    - assets/reward_logo.png
+    - assets/uber_logo.jpeg
+    - assets/voucher_logo.png
 

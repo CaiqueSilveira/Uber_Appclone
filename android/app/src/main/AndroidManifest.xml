@@ -11,7 +11,7 @@
         android:label="uber_appclone"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBaI2jiq5ZD7PVfsz23j4F7Q-ERJfO5E-g"/>
+            android:value="AIzaSyDruc5CF7Tv9QV2OXapVBl7vih8f_slB_c"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
