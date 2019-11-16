@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uber_appclone/page/ui_drawer_componets/ajuda_page.dart';
@@ -5,28 +6,61 @@ import 'package:uber_appclone/page/ui_drawer_componets/configuracao_page.dart';
 import 'package:uber_appclone/page/ui_drawer_componets/desconto_page.dart';
 import 'package:uber_appclone/page/ui_drawer_componets/pagamento_page.dart';
 import 'package:uber_appclone/page/ui_drawer_componets/viagens_page.dart';
-import 'dart:async';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:uber_appclone/page/ui_profile/edit_profile.dart';
 
-class MapSample extends StatefulWidget {
+class Painel extends StatefulWidget {
   @override
-  State<MapSample> createState() => MapSampleState();
+  State<Painel> createState() => PainelState();
 }
 
-class MapSampleState extends State<MapSample> {
+class PainelState extends State<Painel> {
   Completer<GoogleMapController> _controller = Completer();
+  CameraPosition _posicaoCamera =
+      CameraPosition(target: LatLng(-23.563999, -46.653256));
+  _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(-10.969126147329, -37.05891251564),
-    zoom: 14.4746,
-  );
+  _addListenerLocalizacao() {
+    var geolocator = Geolocator();
+    var locationOptions =
+        LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
 
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(-10.969126147329, -37.05891251564),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+    geolocator.getPositionStream(locationOptions).listen((Position position) {
+      _posicaoCamera = CameraPosition(
+          target: LatLng(position.latitude, position.longitude), zoom: 19);
+
+      _movCamera(_posicaoCamera);
+    });
+  }
+
+  _ultimaLocalizacao() async {
+    Position position = await Geolocator()
+        .getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
+
+    setState(() {
+      if (position != null) {
+        _posicaoCamera = CameraPosition(
+            target: LatLng(position.latitude, position.longitude), zoom: 19);
+
+        _movCamera(_posicaoCamera);
+      }
+    });
+  }
+
+  _movCamera(CameraPosition cameraPosition) async {
+    GoogleMapController googleMapController = await _controller.future;
+    googleMapController
+        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _ultimaLocalizacao();
+    _addListenerLocalizacao();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,24 +128,16 @@ class MapSampleState extends State<MapSample> {
           ],
         ),
       ),
-      body: GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: Text('GO!'),
-        icon: Icon(Icons.directions_boat),
+      body: Container(
+        child: GoogleMap(
+          mapType: MapType.normal,
+          initialCameraPosition: _posicaoCamera,
+          onMapCreated: _onMapCreated,
+          myLocationEnabled: true,
+          //-23,559200, -46,658878
+        ),
       ),
     );
-  }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 
   Widget _listTile(String title, Widget page) {
