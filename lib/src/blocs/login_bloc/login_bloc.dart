@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uber_appclone/src/blocs/login_bloc/login_validators.dart';
-import 'package:uber_appclone/src/page/ui_home/home_page.dart';
 import 'package:uber_appclone/src/page/ui_login/login_page.dart';
 import 'package:uber_appclone/src/page/ui_login/sm_confirme_page.dart';
 import 'package:uber_appclone/src/services/authentication/authentication.dart';
+import 'package:uber_appclone/src/services/userRepository/userRepository.dart';
 
 class LoginBloc with Validators {
   final Authentication _authentication = new Authentication();
+  final UserRepository _repository = new UserRepository();
 
   // Controllers
   final _userController = BehaviorSubject<FirebaseUser>();
@@ -50,11 +51,16 @@ class LoginBloc with Validators {
             ),
           );
         } else {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => Painel(currentUser: value.user),
-            ),
-          );
+          _repository.getUserDatabase().then((value) {
+            switch (value.type) {
+              case "motorista":
+                Navigator.pushReplacementNamed(context, "/painel-motorista", arguments: value);
+                break;
+              case "passageiro":
+                Navigator.pushReplacementNamed(context, "/painel-passageiro", arguments: value);
+                break;
+            }
+          });
         }
       },
     );
@@ -72,39 +78,41 @@ class LoginBloc with Validators {
       ),
     );
   }
-  
+
   onClickConfirmeUserByPhone(BuildContext context) async {
     final name = _nameController.value;
     final email = _emailController.value;
     final type = _typeController.value;
     await _authentication.confirmeUserByPhone(name, email, type);
-    await _authentication.currentUser().then((value){
+    await _authentication.currentUser().then((value) {
       _userController.add(value);
+      _repository.getUserDatabase().then((user) {
+        switch (user.type) {
+          case "motorista":
+            Navigator.pushReplacementNamed(context, "/painel-motorista", arguments: value);
+            break;
+          case "passageiro":
+            Navigator.pushReplacementNamed(context, "/painel-passageiro", arguments: value);
+            break;
+        }
+      });
     });
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Painel(currentUser: _userController.value),
-    ));
   }
 
   onClickConfirmeUser(BuildContext context) async {
     final phone = _phoneController.value;
     final type = _typeController.value;
     await _authentication.confirmeUserByGoogle(phone, type);
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Painel(currentUser: _userController.value),
-    ));
-  }
-
-  checkLogin(BuildContext context) async {
-    if (await _authentication.currentUser() != null) {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Painel(
-                currentUser: _userController.value,
-              )));
-    } else {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => LoginPage()));
-    }
+    _repository.getUserDatabase().then((value) {
+      switch (value.type) {
+        case "motorista":
+          Navigator.pushReplacementNamed(context, "/painel-motorista", arguments: value);
+          break;
+        case "passageiro":
+          Navigator.pushReplacementNamed(context, "/painel-passageiro", arguments: value);
+          break;
+      }
+    });
   }
 
   onClickSignOut(BuildContext context) async {

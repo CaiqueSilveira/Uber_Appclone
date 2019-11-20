@@ -27,6 +27,12 @@ class UserRepository {
     _db
         .collection("requests")
         .document(idRequest)
-        .updateData({"motorista": driver.toMap()});
+        .updateData({"driver": driver.toMap()});
   }
+
+  Future<FirebaseUser> currentUser() async {
+    _firebaseUser = await _auth.currentUser();
+    return _firebaseUser;
+  }
+
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uber_appclone/src/blocs/login_bloc/login_bloc.dart';
 import 'package:uber_appclone/src/blocs/login_bloc/login_provider.dart';
@@ -13,6 +14,7 @@ class LoginPage extends StatelessWidget {
 }
 
 class LoginContent extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
 
