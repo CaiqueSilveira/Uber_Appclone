@@ -4,7 +4,7 @@ description: Clone do App Uber
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -20,6 +20,7 @@ dependencies:
   cloud_firestore: ^0.12.9+5
   shared_preferences: ^0.5.3+4
   firebase_storage: ^3.0.6
+  intl: ^0.16.0
   
 
 dev_dependencies:
@@ -39,4 +40,6 @@ flutter:
     - assets/reward_logo.png
     - assets/uber_logo.jpeg
     - assets/voucher_logo.png
+    - assets/rider_marker.png
+    - assets/driver_marker.png
 
